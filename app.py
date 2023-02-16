@@ -120,15 +120,16 @@ def users(user):
         return jsonify(instance_to_user(users))
 
 
-@app.route("/users", methods=['GET', 'POST'])
+@app.route("/users/", methods=['GET', 'POST'])
 def user():
-    if request.methods == 'GET':
+    if request.method == 'GET':
         result = []
         users = User.query.all()
         for user in users:
             result.append(instance_to_user(user))
         return jsonify(result)
-    if request.methods == 'POST':
+
+    if request.method == 'POST':
         data = request.json
         users = User(
             first_name=data.get('first_name'),
